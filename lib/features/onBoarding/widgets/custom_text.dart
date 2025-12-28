@@ -4,13 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomText extends StatelessWidget {
   final String text;
   final double size;
+  final TextAlign? textAlign;
   final FontWeight? fontWeight;
   final Color? color;
-  const CustomText({super.key, required this.text, required this.size, this.fontWeight,this.color});
+  const CustomText({super.key, required this.text, required this.size, this.fontWeight,this.color, this.textAlign});
 
   @override
   Widget build(BuildContext context) {
     return Text(
+      textAlign:textAlign ,
       textDirection: TextDirection.rtl,
           text,
       style: GoogleFonts.montserrat(

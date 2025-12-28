@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mazad/core/constants/app_colors.dart';
-import 'package:mazad/features/auth/widgets/custom_btn.dart';
+import 'package:mazad/features/auth/views/forgetpass/reset_pass.dart';
 import 'package:mazad/features/auth/widgets/custom_divider.dart';
 import 'package:mazad/features/auth/widgets/custom_social_media.dart';
 import 'package:mazad/features/onBoarding/widgets/custom_text.dart';
-import 'package:mazad/root.dart';
 import 'package:mazad/shared/custom_button.dart';
+import 'package:mazad/shared/custom_navigate.dart';
 import 'package:mazad/shared/custom_txtfield.dart';
 import 'package:mazad/shared/gradiant_scaffold.dart';
 
@@ -79,7 +79,7 @@ class _LoginViewState extends State<LoginView> {
                             hint: 'البريد الالكتروني',
                             isPassword: false,
                           ),
-                        //  const Gap(10),
+                          //  const Gap(10),
                           const CustomText(
                             text: "ادخل كلمة المرور",
                             size: 10,
@@ -94,10 +94,15 @@ class _LoginViewState extends State<LoginView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const CustomText(
-                                text: 'هل نسيت كلمة المرور؟',
-                                size: 10,
-                                color: Color(0xffFF6D29),
+                              GestureDetector(
+                                onTap: () {
+                                  navigate(context,const ResetPassword());
+                                },
+                                child: const CustomText(
+                                  text: 'هل نسيت كلمة المرور؟',
+                                  size: 10,
+                                  color: Color(0xffFF6D29),
+                                ),
                               ),
                               const Spacer(),
                               Text(
@@ -114,8 +119,8 @@ class _LoginViewState extends State<LoginView> {
                               ),
                             ],
                           ),
-                           CustomButton(
-                            onTap: (){
+                          CustomButton(
+                            onTap: () {
                               // Navigator.pushReplacement(
                               //   context,
                               //   MaterialPageRoute(
@@ -162,7 +167,7 @@ class _LoginViewState extends State<LoginView> {
                                   TextSpan(
                                     text: 'انشئ حساب',
                                     style: TextStyle(
-                                      color:AppColors.primary,
+                                      color: AppColors.primary,
                                       fontWeight: FontWeight.w600,
                                     ),
                                     recognizer: TapGestureRecognizer()

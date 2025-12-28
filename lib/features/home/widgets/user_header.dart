@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mazad/features/onBoarding/widgets/custom_text.dart';
@@ -49,6 +48,7 @@ class UserHeader extends StatelessWidget {
             const Gap(9),
             CircleAvatar(
               radius: 22,
+              // ignore: deprecated_member_use
               backgroundColor: AppColors.primary.withOpacity(0.5),
               child: CircleAvatar(
                 radius: 20,

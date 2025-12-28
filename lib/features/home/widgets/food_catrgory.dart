@@ -34,7 +34,7 @@ class _CarCategoryState extends State<CarCategory> {
                 border: Border.all(color: Colors.black12),
                 color: selectedIndex == index
                     ? AppColors.primary
-                    : Color(0xffF3F4F6),
+                    : const Color(0xffF3F4F6),
                 borderRadius: BorderRadius.circular(20),
               ),
               padding:const EdgeInsets.symmetric(horizontal: 20,vertical: 6),

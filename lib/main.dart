@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mazad/core/constants/app_colors.dart';
-import 'package:mazad/features/onBoarding/views/onboarding.dart';
+import 'package:mazad/features/auth/views/forgetpass/reset_pass.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           primaryColor: AppColors.primary,
           scaffoldBackgroundColor: Colors.white
         ),
-        home:const Onboarding(),
+        home:const ResetPassword(),
       ),
     );
   }

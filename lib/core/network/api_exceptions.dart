@@ -18,8 +18,8 @@ class ApiExceptions {
     }
 
 
-    print(statusCode);
-    print(data);
+    // print(statusCode);
+    // print(data);
 
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
