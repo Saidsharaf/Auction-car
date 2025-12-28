@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mazad/core/constants/app_colors.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomUnfilledButton extends StatelessWidget {
   final String text;
   final double size;
   final void Function()? onTap;
   final FontWeight? fontWeight;
-  const CustomButton({super.key, required this.text, required this.size, this.fontWeight, this.onTap});
+  const CustomUnfilledButton({super.key, required this.text, required this.size, this.fontWeight, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class CustomButton extends StatelessWidget {
       onTap:onTap,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          border: Border.all(color: AppColors.primary),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
             style: GoogleFonts.montserrat(
               fontSize: size,
               fontWeight: fontWeight,
-              color: Colors.white,
+              color: AppColors.primary,
             ),
           ),
         ),
