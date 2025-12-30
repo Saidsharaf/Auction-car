@@ -1,44 +1,66 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mazad/core/constants/app_colors.dart';
-import 'package:mazad/features/auth/views/forgetpass/reset_pass.dart';
-import 'package:mazad/features/auth/views/register/register_view.dart';
-import 'package:mazad/features/auth/widgets/custom_divider.dart';
-import 'package:mazad/features/auth/widgets/custom_social_media.dart';
+import 'package:mazad/features/auth/views/login_view.dart';
 import 'package:mazad/features/onBoarding/widgets/custom_text.dart';
 import 'package:mazad/shared/custom_button.dart';
 import 'package:mazad/shared/custom_navigate.dart';
 import 'package:mazad/shared/custom_txtfield.dart';
 import 'package:mazad/shared/gradiant_scaffold.dart';
+import 'package:gap/gap.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  final formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passController = TextEditingController();
-  bool isLoading = false;
-  List<String> socialMediaImages = [
-    'assets/images/google.png',
-    'assets/images/facebook.png',
-    'assets/images/apple.png'
-  ];
+final formKey = GlobalKey<FormState>();
+final emailController = TextEditingController();
+final passController = TextEditingController();
+final nameController = TextEditingController();
+final numberController = TextEditingController();
+int selectedIndex = 0;
 
+class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
+    // return DefaultTabController(
+    //   length: 2,
+    //   child: Scaffold(
+    //     appBar: AppBar(
+    //       backgroundColor: Colors.white,
+    //       elevation: 0,
+    //       centerTitle: true,
+    //       title: const Text(
+    //         "إنشاء حساب",
+    //         style: TextStyle(color: Colors.black),
+    //       ),
+    //       bottom: const TabBar(
+    //         labelColor: Colors.orange,
+    //         unselectedLabelColor: Colors.grey,
+    //         indicatorColor: Colors.orange,
+    //         tabs: [
+    //           Tab(text: "منشأة"),
+    //           Tab(text: "فرد"),
+    //         ],
+    //       ),
+    //     ),
+    //     body: const TabBarView(
+    //       children: [
+    //         CompanyRegister(),
+    //         IndividualRegister(),
+    //       ],
+    //     ),
+    //   ),
+    // );
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: GradientScaffold(
         child: Padding(
           padding: const EdgeInsets.only(
-              left: 10.0, top: 100, right: 10.0, bottom: 30),
+              left: 10.0, top: 60, right: 10.0, bottom: 30),
           child: Container(
             height: 1000,
             decoration: const BoxDecoration(
@@ -52,23 +74,43 @@ class _LoginViewState extends State<LoginView> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const Gap(70),
+                    const Gap(10),
+                    Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        _item(title: "منشأة", index: 1),
+        const SizedBox(width: 30),
+          _item(title: "فرد", index: 0),
+      ],
+    ),
                       const CustomText(
-                        text: 'تسجيل الدخول ',
+                        text: 'انشاء حساب',
                         color: Color(0xff090B0E),
                         size: 15,
                         fontWeight: FontWeight.w500,
                       ),
                       const CustomText(
-                        text:
-                            'أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول',
+                        text: 'ابدأ بإنشاء حساب جديد',
                         color: Color(0xff6C7278),
-                        size: 8,
+                        size: 9,
                       ),
                       const Gap(20),
+                      selectedIndex== 0?
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          const CustomText(
+                            text: "الاسم بالكامل",
+                            size: 8,
+                            color: Color(0xff6C7278),
+                          ),
+                          const Gap(2),
+                          CustomTxtfield(
+                            controller: nameController,
+                            hint: 'الاسم بالكامل',
+                            isPassword: false,
+                          ),
+                          const Gap(10),
                           const CustomText(
                             text: "ادخل بريدك الالكتروني",
                             size: 8,
@@ -79,6 +121,20 @@ class _LoginViewState extends State<LoginView> {
                             controller: emailController,
                             hint: 'البريد الالكتروني',
                             isPassword: false,
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          const Gap(10),
+                          const CustomText(
+                            text: "ادخل رقم الهاتف المرتبط بالواتس اب",
+                            size: 8,
+                            color: Color(0xff6C7278),
+                          ),
+                          const Gap(2),
+                          CustomTxtfield(
+                            controller: numberController,
+                            hint: 'رقم الهاتف',
+                            isPassword: false,
+                            keyboardType: TextInputType.phone,
                           ),
                           const Gap(10),
                           const CustomText(
@@ -92,38 +148,7 @@ class _LoginViewState extends State<LoginView> {
                             hint: 'كلمة المرور',
                             isPassword: true,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  navigate(context, const ResetPassword());
-                                },
-                                child: const CustomText(
-                                  text: 'هل نسيت كلمة المرور؟',
-                                  size: 8,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xffFF6D29),
-                                ),
-                              ),
-                              const Spacer(),
-                              Text(
-                                'تذكرني',
-                                style: GoogleFonts.inter(
-                                  fontSize: 8,
-                                  color: const Color(0xff546881),
-                                ),
-                              ),
-                              Transform.scale(
-                                scale: 0.7,
-                                child: Checkbox(
-                                  value: false,
-                                  activeColor: AppColors.primary,
-                                  onChanged: (value) {},
-                                ),
-                              ),
-                            ],
-                          ),
+                          const Gap(40),
                           CustomButton(
                             onTap: () {
                               // Navigator.pushReplacement(
@@ -138,39 +163,20 @@ class _LoginViewState extends State<LoginView> {
                             },
                             size: 13,
                             fontWeight: FontWeight.w600,
-                            text: 'تسجيل الدخول',
-                          ),
-                          const Gap(15),
-                          const OrDivider(
-                            text: "او سجل دخولك من خلال",
-                            color: Color(0xff546881),
-                          ),
-                          const Gap(10),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                ...List.generate(
-                                  socialMediaImages.length,
-                                  (index) => CustomSocialMedia(
-                                    imagePath: socialMediaImages[index],
-                                  ),
-                                ),
-                              ],
-                            ),
+                            text: 'انشئ الحساب',
                           ),
                           const Gap(20),
                           Center(
                             child: RichText(
                               text: TextSpan(
-                                text: 'أليس لديك حساب؟ ',
+                                text: 'هل لديك حساب بالفعل ؟ ',
                                 style: const TextStyle(
                                   color: Color(0xff546881),
                                   fontSize: 13,
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: 'انشئ حساب',
+                                    text: 'تسجيل الدخول',
                                     style: TextStyle(
                                       color: AppColors.primary,
                                       fontWeight: FontWeight.w600,
@@ -178,7 +184,7 @@ class _LoginViewState extends State<LoginView> {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         navigateAndFinish(
-                                            context,const RegisterView());
+                                            context, const LoginView());
                                       },
                                   ),
                                 ],
@@ -186,7 +192,7 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                         ],
-                      ),
+                      ): SizedBox(),
                     ],
                   ),
                 ),
@@ -194,6 +200,38 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
         ),
+      ),
+    );
+  }
+  
+  Widget _item({required String title, required int index}) {
+    final bool isSelected = selectedIndex == index;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: isSelected ? Colors.orange : Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 6),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            height: 2,
+            width: isSelected ? 40 : 0,
+            color: Colors.orange,
+          ),
+        ],
       ),
     );
   }

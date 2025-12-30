@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mazad/features/home/widgets/card_item.dart';
-import 'package:mazad/features/home/widgets/food_catrgory.dart';
+import 'package:mazad/features/home/widgets/car_catrgory.dart';
 import 'package:mazad/features/home/widgets/search_field.dart';
 import 'package:mazad/features/home/widgets/user_header.dart';
 import 'package:skeletonizer/skeletonizer.dart';
