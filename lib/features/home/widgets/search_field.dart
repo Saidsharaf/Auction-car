@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mazad/core/constants/app_colors.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({super.key});
@@ -10,23 +9,34 @@ class SearchField extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextField(
+        style: const TextStyle(
+          fontSize: 12,
+        ),
         cursorHeight: 15,
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
         decoration: InputDecoration(
-          filled: true,
           contentPadding: EdgeInsets.zero,
-          hintText: 'Search..',
-          fillColor: Colors.transparent,
-          prefixIcon:const Icon(CupertinoIcons.search, size: 18),
+          hintText: 'ماذا تبحث عن ؟',
+          hintStyle: TextStyle(
+            color: Colors.grey.withOpacity(0.7),
+            fontSize: 10,
+          ),
+          suffixIcon: const Icon(
+            CupertinoIcons.search,
+            size: 18,
+            color: Color(0xFF3D4C5E),
+          ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
               // ignore: deprecated_member_use
-              color: AppColors.primary.withOpacity(0.3),
+              color: Color(0xFF909DAD),
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide:const BorderSide(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
               color: Colors.black,
             ),
           ),

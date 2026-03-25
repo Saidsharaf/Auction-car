@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mazad/core/constants/app_colors.dart';
 import 'package:mazad/features/auth/views/login_view.dart';
+import 'package:mazad/features/auth/views/register/register_view.dart';
 import 'package:mazad/features/onBoarding/model/onboarding_model.dart';
 import 'package:mazad/features/onBoarding/widgets/custom_text.dart';
+import 'package:mazad/root.dart';
 import 'package:mazad/shared/custom_button.dart';
 import 'package:mazad/shared/custom_navigate.dart';
 import 'package:mazad/shared/custom_text_btn.dart';
@@ -25,6 +27,18 @@ class _OnboardingState extends State<Onboarding> {
   void initState() {
     super.initState();
     controller = PageController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    for (var page in OnboardingData.pages) {
+      precacheImage(
+        AssetImage(page.imageAsset),
+        context,
+      );
+    }
   }
 
   @override
@@ -50,73 +64,56 @@ class _OnboardingState extends State<Onboarding> {
         children: [
           Expanded(
             child: PageView.builder(
-              itemCount: OnboardingData.pages.length,
-              controller: controller,
               physics: const NeverScrollableScrollPhysics(),
+              controller: controller,
+              itemCount: OnboardingData.pages.length,
               onPageChanged: (index) {
-                // Last page reached
                 setState(() {
                   islast = index == OnboardingData.pages.length - 1;
                 });
               },
-              // physics:const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return SingleChildScrollView(
-                  child: AnimatedBuilder(
-                    animation: controller,
-                    builder: (context, child) {
-                      double value = 1.0;
-                      if (controller.position.haveDimensions) {
-                        value = ((1 -
-                                ((controller.page ?? controller.initialPage) -
-                                        index)
-                                    .abs())
-                            .clamp(0.0, 1.0)) as double;
-                      }
-                      return Opacity(
-                        opacity: value,
-                        child: Transform.scale(
-                          scale: 0.9 + (value * 0.1),
-                          child: child,
+                final page = OnboardingData.pages[index];
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      const Spacer(flex: 2),
+                      SizedBox(
+                        height: 180,
+                        child: Image.asset(
+                          page.imageAsset,
+                          fit: BoxFit.cover,
+                          cacheWidth: 400,
                         ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                              height: 180,
-                              child: Image.asset(
-                                OnboardingData.pages[index].imageAsset,
-                                fit: BoxFit.cover,
-                              )),
-                          const Gap(15),
-                          SmoothPageIndicator(
-                              controller: controller,
-                              count: OnboardingData.pages.length,
-                              effect: ExpandingDotsEffect(
-                                activeDotColor: AppColors.primary,
-                                dotColor: Colors.grey.shade300,
-                                dotHeight: 8,
-                                dotWidth: 12,
-                                spacing: 8,
-                              )),
-                          const Gap(35),
-                          CustomText(
-                              text: OnboardingData.pages[index].title,
-                              size: 11,
-                              fontWeight: FontWeight.w600),
-                          const Gap(10),
-                          CustomText(
-                              text: OnboardingData.pages[index].description,
-                              size: 10,
-                              fontWeight: FontWeight.w400),
-                          const Gap(80),
-                        ],
                       ),
-                    ),
+                      const Gap(20),
+                      SmoothPageIndicator(
+                        controller: controller,
+                        count: OnboardingData.pages.length,
+                        effect: ExpandingDotsEffect(
+                          activeDotColor: AppColors.primary,
+                          dotColor: Colors.grey.shade300,
+                          dotHeight: 8,
+                          dotWidth: 12,
+                        ),
+                      ),
+                      const Gap(30),
+                      CustomText(
+                        text: page.title,
+                        size: 11,
+                        fontWeight: FontWeight.w600,
+                        textAlign: TextAlign.center,
+                      ),
+                      const Gap(10),
+                      CustomText(
+                        text: page.description,
+                        size: 10,
+                        textAlign: TextAlign.center,
+                      ),
+                      const Spacer(flex: 3),
+                    ],
                   ),
                 );
               },
@@ -139,7 +136,7 @@ class _OnboardingState extends State<Onboarding> {
                       const Gap(10),
                       CustomUnfilledButton(
                         onTap: () {
-                          //  navigateAndFinish(context, const LoginView());
+                          navigateAndFinish(context, const RegisterView());
                         },
                         text: "انشاء حساب",
                         size: 14,
@@ -147,7 +144,7 @@ class _OnboardingState extends State<Onboarding> {
                       ),
                       CustomTextBtn(
                         onPressed: () {
-                          //  navigateAndFinish(context, const LoginView());
+                          navigateAndFinish(context, const Root());
                         },
                         text: "دخول كزائر",
                         size: 12,

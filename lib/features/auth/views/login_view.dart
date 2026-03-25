@@ -8,6 +8,7 @@ import 'package:mazad/features/auth/views/register/register_view.dart';
 import 'package:mazad/features/auth/widgets/custom_divider.dart';
 import 'package:mazad/features/auth/widgets/custom_social_media.dart';
 import 'package:mazad/features/onBoarding/widgets/custom_text.dart';
+import 'package:mazad/root.dart';
 import 'package:mazad/shared/custom_button.dart';
 import 'package:mazad/shared/custom_navigate.dart';
 import 'package:mazad/shared/custom_txtfield.dart';
@@ -126,14 +127,10 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           CustomButton(
                             onTap: () {
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const Root(),
-                              //   ),
-                              // );
+                            
                               if (formKey.currentState!.validate()) {
                                 // Perform login action
+                                navigateAndFinish(context, const Root());
                               }
                             },
                             size: 13,
